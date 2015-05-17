@@ -1,14 +1,10 @@
 package Formulario;
 import javax.swing.*;
-
 import Clases.AplicarTemaVentana;
 import Clases.ClassBaseDeDatos;
 import Clases.Variable;
-
 import java.awt.*;
-
 import javax.swing.border.MatteBorder;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -18,12 +14,15 @@ import java.sql.SQLException;
 
 public class FrmLogin extends JFrame{
 	
+	        /**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 			private JButton btnAceptar;
 	        private JButton btnCancelar;
+	        String nombreObtenido;
 	        private JTextField txtNombreUsuario;
 	        private JPasswordField txtContrasena;
-	        private String nombreObtenido;
 	      
 	    public static void main(String[] args) {
 	    	EventQueue.invokeLater(new Runnable() {
@@ -76,7 +75,7 @@ public class FrmLogin extends JFrame{
 /////////////////////////////////////////////////////////////////////////////////////////////////////LOGIN PARA ENTRAR AL SISTEMA			
 			btnAceptar = new JButton("Entrar [Enter]");
 			btnAceptar.setMnemonic('E');
-			//btnAceptar.setMnemonic(KeyEvent.VK_ENTER);
+			btnAceptar.setMnemonic(KeyEvent.VK_ENTER);
 			btnAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					accederAlSistema();  // LLAMADA A LA FUNCION 
@@ -160,7 +159,7 @@ public class FrmLogin extends JFrame{
 	        setLocation((tamPantalla.width-tamFrame.width)/2, (tamPantalla.height-tamFrame.height)/2);  //para posicionar
 	        
 	        setUndecorated(true);
-	        setVisible(true);           // Hacer visible al frame 
+	
 	        
 	        suscribirComponetesAlManejoDeTeclas();  // LLAMADA AL METODO SUSCRIBIR  COMPONENTES AL MANEJO DE TECLAS
 	 
@@ -186,7 +185,7 @@ public class FrmLogin extends JFrame{
 				public void keyPressed(KeyEvent evento) {
 					
 					if(evento.getKeyCode() == KeyEvent.VK_ENTER ){   // capturando la tecla precionada 
-						accederAlSistema();
+						//accederAlSistema();
 					}
 					if(evento.getKeyCode() == KeyEvent.VK_ESCAPE){
 						cancelarEntradaAlSistema();
@@ -196,23 +195,36 @@ public class FrmLogin extends JFrame{
 		}
 	}
 	
-// METODO PARA ACCEDER AL SISTEMA 
+// CONEXION DEL LOGIN CON TODAS LAS VALIDACIONES DEL SISTEMA 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	private void accederAlSistema()
-	{
-		mtdValidarPermisos();
-		mtdValidarUsuario(txtNombreUsuario.getText(), new String(txtContrasena.getPassword()));
-			
-	}
-/// METODO PARA VALIDAR LOS PERMISOS DE USUARIO	
-	public void mtdValidarPermisos() {
+	private void accederAlSistema() {
+		  mtdValidarPermisos();	
 		
+		
+		if (mtdValidarUsuario(txtNombreUsuario.getText(), new String(txtContrasena.getPassword())) == true){
+			dispose();
+			setVisible(false);
+			FrmPrincipal frm = new FrmPrincipal();
+			frm.mostrarFormulario();
+			frm.nombreDelUsuario(nombreObtenido);
+		}
+		
+		else{
+		
+			JOptionPane.showMessageDialog(null, "Nombre de Usuario y/o Contrasena Invalidos");
+			txtContrasena.setText("");
+		}
+		
+	}
+	public void mtdValidarPermisos() {
+		String nombreUsuarioObtenido = null;
+		String contrasenaObtenida = null;
 		ResultSet resultado;
 		try{
 				resultado = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery("SELECT nombreUsuario, contrasena, nombre, pConfiguracion, pBackup, pNUsuario, pCUsuario, pSalirSistema, pRVenta, pCVenta, pRCompra, pCCompra, pNArticulo, pCArticulo, pNCliente, pCCliente, pNProveedores, pCProveedores, pTablasAxu, pReporteVenta, pReporteCompras, pRArticulo, pRCliente, pRProveedores, pCajaDiaria, pInformeVentaD, pBusquedaFactura, pListaArti, pManualUsu, pAcercaApli FROM tblusuario WHERE nombreUsuario = '"+txtNombreUsuario.getText() +"'");
 				while(resultado.next()){
-					String nombreu = resultado.getString(1);
-					String contras = resultado.getString(2);
+					nombreUsuarioObtenido = resultado.getString(1);
+					contrasenaObtenida = resultado.getString(2);
 					nombreObtenido = resultado.getString(3);
 					Variable.configuracion = resultado.getBoolean(4);
 					Variable.backup_Restauracion = resultado.getBoolean(5);
@@ -248,39 +260,29 @@ public class FrmLogin extends JFrame{
 			
 		}
 	}
-
-// METODO PARA COMPARAR QUE EL NOMBRE Y LA CONTRASENA DIGITADA SEAN CORRECTAS
-	public boolean mtdValidarUsuario(String nombreUsuarioRecibido, String contrasenaRecibida) {
-		ResultSet resultado;
-		String nombreUsuarioObtenido = null;
-		String contrasenaObtenida = null;
-		try{
-				resultado = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery("SELECT nombreUsuario, contrasena FROM tblusuario WHERE nombreUsuario = '"+nombreUsuarioRecibido +"'");
-				while(resultado.next()){
-					nombreUsuarioObtenido = resultado.getString(1);
-					contrasenaObtenida = resultado.getString(2);
-				}
-		}
-		catch(ClassNotFoundException | SQLException e){
-			JOptionPane.showMessageDialog(null, e.getMessage());	
-		}
-		
-		if(nombreUsuarioRecibido.equals(nombreUsuarioObtenido) && new String (contrasenaRecibida).equals(contrasenaObtenida)){
-			
-				dispose();
-				setVisible(false);
-				FrmPrincipal frm = new FrmPrincipal();
-				frm.nombreDelUsuario(nombreObtenido);
-				frm.mostrarFormulario();
-				return true;
-			
-		}
-		else{
-				JOptionPane.showMessageDialog(null, "Nombre de Usuario y/o Contrasena Invalidos");
-				txtContrasena.setText("");
-				return false;
-		}
+public boolean mtdValidarUsuario(String nombreUsuarioRecibido, String contrasenaRecibida) {
+	ResultSet resultado;
+	String nombreUsuarioObtenido = null;
+	String contrasenaObtenida = null;
+	try{
+			resultado = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery("SELECT nombreUsuario, contrasena FROM tblusuario WHERE nombreUsuario = '"+nombreUsuarioRecibido +"'");
+			while(resultado.next()){
+				nombreUsuarioObtenido = resultado.getString(1);
+				contrasenaObtenida = resultado.getString(2);
+				
+			}
 	}
+	catch(ClassNotFoundException | SQLException e){
+		JOptionPane.showMessageDialog(null, e.getMessage());	
+	}
+	
+	if(nombreUsuarioRecibido.equals(nombreUsuarioObtenido) && new String (contrasenaRecibida).equals(contrasenaObtenida)){
+			return true;
+	}
+	else{
+			return false;
+	}
+}
 	
 	//CUANDO SE PRESIONA LA TECLA ESCAPE SE LLAMA ESTA FUNCION 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -23,7 +23,7 @@ public class validator {
             System.out.println("Mail incorrecto");
         }
         
-        String fecha = "23/12/1987";
+        String fecha = "23/124/1987";
         if (isDate(fecha)) {
             System.out.println("Fecha correcta");
         }else{

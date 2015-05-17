@@ -1,9 +1,13 @@
 package Clases;
 
 
+import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import javax.swing.Icon;
 import javax.swing.JTextField;
+import javax.swing.border.MatteBorder;
 
 public class ValidarTextField {               // SE CREARON DOS FUNCIONES QUE RECIBEN COMO PARAMETRO UN TEXFIELD Y SE HACEN LAS CORRESPONDIENTE VALIDACIONES
 	public void AdmitirSoloLetras(final JTextField textfield){
@@ -29,4 +33,19 @@ public class ValidarTextField {               // SE CREARON DOS FUNCIONES QUE RE
 		});
 	}
 	
+// VALIDAR QUE EL TEXFIEL NO ESTE EN BLANCO
+public static int validarTextField (String nombreCampo, JTextField txt){
+		
+		if(txt.getText().trim().length() <=0 )
+		{
+			txt.setBorder(new MatteBorder(2, 2, 2, 2,  new Color(178, 34, 34)));
+			txt.requestFocus();
+			return 0;
+		}
+		else
+		{
+			txt.setBorder(new MatteBorder(2, 2, 2, 2,  new Color(0, 128, 128)));
+			return 1;
+		}
+	}
 }

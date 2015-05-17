@@ -816,7 +816,7 @@ public class FrmRegistroDeProductos extends JInternalFrame {
 	}
 	
 // VALIDAR QUE LOS CONTROLES NO ESTEN VACIOS 
-	public void validarCamposVacios(){
+	/*public void validarCamposVacios(){
 		
 		try
 		{
@@ -891,8 +891,22 @@ public class FrmRegistroDeProductos extends JInternalFrame {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		
-	}
-
+	}*/
+	// VALIDAR QUE LOS CONTROLES NO ESTEN VACIOS 
+	public void validarCamposVacios()
+	{
+		if(
+			    ValidarTextField.validarTextField("Codigo", txtCodigoProducto) ==0
+			||  ValidarTextField.validarTextField("Descripcion", txtDescripcion) ==0
+			||  ValidarTextField.validarTextField("Costo Producto", txtCostoProducto)==0
+			||  ValidarTextField.validarTextField("Efectivo", txtEfectivo)==0
+			|| ValidarTextField.validarTextField("Stock Maximo", txtStockMaximo)==0
+			|| ValidarTextField.validarTextField("Stock Minimo", txtStockMinimo)==0)
+			{
+				JOptionPane.showMessageDialog(null, "Este campo no puede estar en blanco");
+			}
+		}
+	
 // BUSCAR ARTICULO POR CODIGO 
 	private void busquedaPorCodigoProducto() {
 		try{
@@ -909,7 +923,7 @@ public class FrmRegistroDeProductos extends JInternalFrame {
 	private void busquedaPorDescripcionaProducto() {
 		try{
 			String condicion = "";
-			condicion = "descripcion like '%" + txtBuscarPorDescripcion.getText() + "%'";
+			condicion = "nombreArticulo like '%" + txtBuscarPorDescripcion.getText() + "%'";
 			modeloTabla.establecerCondicion( condicion );
 			modeloTabla.realizarBusqueda();
 		}
