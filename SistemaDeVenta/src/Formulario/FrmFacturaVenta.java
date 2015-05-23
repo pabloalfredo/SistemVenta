@@ -56,6 +56,7 @@ public class FrmFacturaVenta extends JInternalFrame {
 	private JLabel lblTotalProductos;
 	private long ID = 0;
 	private ClassRegistrarProducto validarExistencia;
+	private JButton btnAgregarProductoenter;
 
 	/**
 	 * Launch the application.
@@ -106,76 +107,8 @@ public class FrmFacturaVenta extends JInternalFrame {
 		txtcodigoProducto.setBounds(222, 310, 306, 42);
 		getContentPane().add(txtcodigoProducto);
 		
-		JButton btnAgregarProductoenter = new JButton("       Agregar Producto [Enter]");
-		btnAgregarProductoenter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				    DefaultTableModel tabla = (DefaultTableModel) table.getModel();
-			    	String Descripcion = null;
-					double precio = 0;
-					int cantidadTabla=0;
-				// CUANDO SE PRESIONE TAB SE IMPLEMENTARA ESTA CONDICION.
-		    	/////////////////////////////////////////////////////////////////BUSQUEDA BASE DE DATOS
-				//////////////// ESTO IRA EN LA CLASE FACTURA
-				
-				//table.editCellAt(table.getSelectedRow(), 0);//LE INDICA A LA TABLA QUE LA CELDA A SIDO EDITADA.
-			//	Object valor=table.getValueAt(table.getSelectedRow(), 0);
-				 // ID= (valor==null)?0:Integer.parseInt(valor.toString());//OPERADOR TERNARIO 
-				ID = Long.parseLong(txtcodigoProducto.getText().trim());
-				  
-				if (ID >0){
-				    	
-						ResultSet rs;
-						try {
-							rs = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery("select nombreArticulo, efectivo from tblarticulos where codigoProducto = '"+ID +"'");
-								while (rs.next()){
-								Descripcion=rs.getString(1);
-								precio=rs.getDouble(2);
-								
-								}
-						} catch (ClassNotFoundException e) {
-							JOptionPane.showMessageDialog(null, "El Codigo no existe en el registro");
-							e.printStackTrace();
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-				}
-		    	
-		    	////////////////////////////////////////////////////////////////////////////////////////////////////
-					
-			       
-			        
-			         cantidadTabla = Integer.parseInt(tabla.getValueAt(table.getSelectedRow(), 2).toString());
-			         validarExistencia = new ClassRegistrarProducto(ID, cantidadTabla);
-			        try {
-						if (validarExistencia.validarExistenciaInventario() == true){
-							 tabla.setValueAt(Descripcion, table.getSelectedRow(), 1);
-						     tabla.setValueAt(precio, table.getSelectedRow(), 3);
-							
-							ActualizarTabla();
-						      ActualizarTotal();
-						      sumarFilas();
-					          agregarFila();
-					          txtcodigoProducto.setText("");
-							
-						}
-						
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			      
-			         // ValidarSiCodigoExiste();
-				      
-		
-				
-				
-			}
-		});
+		btnAgregarProductoenter = new JButton("       Agregar Producto [Enter]");
+		agregarArticulo(btnAgregarProductoenter);
 		btnAgregarProductoenter.setIcon(new ImageIcon(FrmFacturaVenta.class.getResource("/Recursos/8EF214180.png")));
 		btnAgregarProductoenter.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnAgregarProductoenter.setHorizontalAlignment(SwingConstants.LEFT);
@@ -582,6 +515,81 @@ public class FrmFacturaVenta extends JInternalFrame {
     	table.changeSelection(0, 0, false, false);
 	}
 
+	/**
+	 * @param btnAgregarProductoenter
+	 */
+	private void agregarArticulo(JButton btnAgregarProductoenter) {
+		btnAgregarProductoenter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				    DefaultTableModel tabla = (DefaultTableModel) table.getModel();
+			    	String Descripcion = null;
+					double precio = 0;
+					int cantidadTabla=0;
+				// CUANDO SE PRESIONE TAB SE IMPLEMENTARA ESTA CONDICION.
+		    	/////////////////////////////////////////////////////////////////BUSQUEDA BASE DE DATOS
+				//////////////// ESTO IRA EN LA CLASE FACTURA
+				
+				//table.editCellAt(table.getSelectedRow(), 0);//LE INDICA A LA TABLA QUE LA CELDA A SIDO EDITADA.
+			//	Object valor=table.getValueAt(table.getSelectedRow(), 0);
+				 // ID= (valor==null)?0:Integer.parseInt(valor.toString());//OPERADOR TERNARIO 
+				ID = Long.parseLong(txtcodigoProducto.getText().trim());
+				  
+				if (ID >0){
+				    	
+						ResultSet rs;
+						try {
+							rs = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery("select nombreArticulo, efectivo from tblarticulos where codigoProducto = '"+ID +"'");
+								while (rs.next()){
+								Descripcion=rs.getString(1);
+								precio=rs.getDouble(2);
+								
+								}
+						} catch (ClassNotFoundException e) {
+							JOptionPane.showMessageDialog(null, "El Codigo no existe en el registro");
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				}
+		    	
+		    	////////////////////////////////////////////////////////////////////////////////////////////////////
+					
+			       
+			        
+			         cantidadTabla = Integer.parseInt(tabla.getValueAt(table.getSelectedRow(), 2).toString());
+			         validarExistencia = new ClassRegistrarProducto(ID, cantidadTabla);
+			        try {
+						if (validarExistencia.validarExistenciaInventario() == true){
+							 tabla.setValueAt(Descripcion, table.getSelectedRow(), 1);
+						     tabla.setValueAt(precio, table.getSelectedRow(), 3);
+							
+							ActualizarTabla();
+						      ActualizarTotal();
+						      sumarFilas();
+					          agregarFila();
+					          txtcodigoProducto.setText("");
+							
+						}
+						
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			      
+			         // ValidarSiCodigoExiste();
+				      
+		
+				
+				
+			}
+		});
+	}
+
 
 	//SUSCRIBIR COMPONENTES AL MANEJO DE EVENTOS, ESTE METOD CAPTURA LOS EVENTOS DEL FORMULARIO
 ///////////////////////////////////////////////////////////////////
@@ -633,6 +641,9 @@ public class FrmFacturaVenta extends JInternalFrame {
 					}
 					if(evento.getKeyCode() == KeyEvent.VK_ESCAPE){
 						cancelarVenta();
+					}
+					if(evento.getKeyCode() == KeyEvent.VK_ENTER){
+						agregarArticulo(btnAgregarProductoenter);
 					}
 				}
 			});

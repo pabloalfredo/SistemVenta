@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 public class ClassBaseDeDatos {
 
-	public static String URL ="jdbc:mysql://localhost/dbproyecto";    // la url de la conexion 
+	public static String URL ="jdbc:mysql://localhost/dbproyectofinal";    // la url de la conexion 
 	public static String Usuario ="root"; // el usuario de la base de datos
 	public static String Contrasena ="alfredo1234";  // la contrasena de la base de datos
 	

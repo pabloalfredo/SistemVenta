@@ -131,7 +131,7 @@ public class FrmPrincipal {
 		mnUsuario.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/Recursos/51F0B6FBE.png")));
 		sistema.add(mnUsuario);
 		
-		JMenuItem itemNuevoUsuario = new JMenuItem("Agregar Nuevo");
+		JMenuItem itemNuevoUsuario = new JMenuItem("Administrar Usuarios");
 		agregarNuevoUsuario(desktopPane, itemNuevoUsuario);       // Nuevo Usuario: Metodo despues del constructor
 		itemNuevoUsuario.setMnemonic('N');
 		itemNuevoUsuario.setFont(new Font("SansSerif", Font.BOLD, 12));

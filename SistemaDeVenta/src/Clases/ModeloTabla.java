@@ -31,7 +31,7 @@ public class ModeloTabla extends AbstractTableModel{
 		this.establecerTabla(tabla);
 		this.establecerCondicion(condicion);
 		Class.forName("com.mysql.jdbc.Driver");
-		conexion = DriverManager.getConnection( "jdbc:mysql://localhost/dbproyecto", "root", "alfredo1234" );
+		conexion = DriverManager.getConnection( "jdbc:mysql://localhost/dbproyectofinal", "root", "alfredo1234" );
 	}
 	
 	public void realizarBusqueda() throws SQLException

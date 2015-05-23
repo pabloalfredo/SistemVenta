@@ -396,7 +396,7 @@ public class FrmRegistroDeClientes extends JInternalFrame {
 		panel_1.add(scrollPane);
 		
 		try {
-			modeloTabla = new ModeloTabla("codigoProveedor as 'Codigo del Proveedor' , nombres as Nombres , apellidos as Apellidos , fechaNacimiento as 'Fecha de Nacimiento',sexo as Sexo, estadoCivil as 'Estado Civil', cedula as Cedula, idCiudad as Ciudad, direccion as Direccion, email as 'Correo Electronico', celular as Celular, ocupacion as Ocupacion  ", "tblproveedor", "1");
+			modeloTabla = new ModeloTabla("codigoCliente as 'Codigo del Cliente' , nombres as Nombres , apellidos as Apellidos , fechaNacimiento as 'Fecha de Nacimiento',sexo as Sexo, estadoCivil as 'Estado Civil', cedula as Cedula, idCiudad as Ciudad, direccion as Direccion, email as 'Correo Electronico', celular as Celular, ocupacion as Ocupacion  ", "tblclientes", "1");
 			modeloTabla.realizarBusqueda();
 		} catch (ClassNotFoundException | SQLException e1) {
 			
@@ -662,7 +662,7 @@ public class FrmRegistroDeClientes extends JInternalFrame {
 	private void BuscarProductoEditar(int codigoproveedor) {
 		try{
 	         
-            String consulta = "SELECT * FROM tblproveedor WHERE codigoProveedor = '"+codigoproveedor+"'";
+            String consulta = "SELECT * FROM tblclientes WHERE codigoCliente = '"+codigoproveedor+"'";
             ResultSet rs = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery(consulta);
             while(rs.next())
             {
@@ -787,7 +787,7 @@ public class FrmRegistroDeClientes extends JInternalFrame {
 
 				if(codigoObtenido == codigoProveedor)
 				{
-					JOptionPane.showMessageDialog(null, "Existe un Proveedor con Este Codigo, Intente con Otro o Genere Uno");
+					JOptionPane.showMessageDialog(null, "Existe un Cliente con Este Codigo, Intente con Otro o Genere Uno");
 					txtCodigoProveedor.requestFocus();
 					return;
 				}
@@ -796,7 +796,7 @@ public class FrmRegistroDeClientes extends JInternalFrame {
 					try
 					{
 						registrarProveedores.registrarNuevoProveedor(); 
-						JOptionPane.showMessageDialog(null, "Proveedor Registrado Correctamente");
+						JOptionPane.showMessageDialog(null, "Cliente Registrado Correctamente");
 						limpiarCampos();
 						mtdDesactivarControlesFormulario(); // HAY PRESIONAR EL BOTON REGISTRAR SE LIMPIAN LOS CAMPOS Y SE DESACTIVAN
 					}

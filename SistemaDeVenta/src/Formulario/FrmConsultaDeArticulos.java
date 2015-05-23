@@ -233,7 +233,7 @@ public class FrmConsultaDeArticulos extends JInternalFrame {
 
 	private void cargarDatosEnTabla() {
 		try {
-			modeloTabla = new ModeloTabla("codigoProducto as 'Codigo de Producto'  , tblcategoriaproducto.descripcion as 'Categoria' , tblmarcaproducto.descripcion as 'Marca',tblunidadmedida.descripcion as Unidad, costo as Costo, efectivo as 'Precio de Venta', stockMaximo as 'Stock Maximo', stockMinimo as 'Stock Minimo'  ", "tblarticulos INNER JOIN tblcategoriaproducto ON tblarticulos.idCategoriaProducto = tblcategoriaproducto.idCategoriaProducto INNER JOIN tblmarcaproducto ON tblarticulos.idMarcaProducto = tblmarcaproducto.idMarcaProducto INNER JOIN tblunidadmedida ON tblarticulos.idUnidadmedida = tblunidadmedida.idUnidadMedida ", "1");
+			modeloTabla = new ModeloTabla("codigoProducto as 'Codigo de Producto' , nombreArticulo AS Articulo, tblcategoriaproducto.descripcion as 'Categoria' , tblmarcaproducto.descripcion as 'Marca',tblunidadmedida.descripcion as Unidad, costo as Costo, efectivo as 'Precio de Venta', stockMaximo as 'Stock Maximo', stockMinimo as 'Stock Minimo'  ", "tblarticulos INNER JOIN tblcategoriaproducto ON tblarticulos.idCategoriaProducto = tblcategoriaproducto.idCategoriaProducto INNER JOIN tblmarcaproducto ON tblarticulos.idMarcaProducto = tblmarcaproducto.idMarcaProducto INNER JOIN tblunidadmedida ON tblarticulos.idUnidadmedida = tblunidadmedida.idUnidadMedida ", "1");
 			modeloTabla.realizarBusqueda();
 		} catch (ClassNotFoundException | SQLException e1) {
 			

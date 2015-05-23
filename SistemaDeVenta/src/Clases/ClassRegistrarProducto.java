@@ -118,7 +118,7 @@ public class ClassRegistrarProducto {
 	/// ESTE METEDO REALIZA LA INSERCION DE PRODUCTOS EN LA BASE DE DATOSS
 	public void registrarNuevoArticulo() throws ClassNotFoundException, SQLException {
 		
-		String sql = "INSERT INTO tblarticulos(codigoProducto, descripcion,idCategoriaProducto,idMarcaProducto,idUnidadMedida, costo, efectivo, stockMaximo,stockMinimo)"
+		String sql = "INSERT INTO tblarticulos(codigoProducto, nombreArticulo,idCategoriaProducto,idMarcaProducto,idUnidadMedida, costo, efectivo, stockMaximo,stockMinimo)"
 				   + "VALUES(?,?,?,?,?,?,?,?,?)";
 		PreparedStatement instrucion = (PreparedStatement) ClassBaseDeDatos.getConnection().prepareStatement(sql);
 		instrucion.setLong(1, getCodigoProducto());
@@ -135,7 +135,7 @@ public class ClassRegistrarProducto {
 	
 	// ESTE METODO REALIZA LA ACTUALIZACION DE PRODUCTOS
 	public void actualizarAticulos() throws ClassNotFoundException, SQLException{
-		String sql = "UPDATE tblarticulos SET descripcion =?, idCategoriaProducto=?,idMarcaProducto=?, idUnidadMedida=?, costo=?, efectivo=?, stockMaximo=?,stockMinimo=? WHERE codigoProducto=? ";
+		String sql = "UPDATE tblarticulos SET nombreArticulo =?, idCategoriaProducto=?,idMarcaProducto=?, idUnidadMedida=?, costo=?, efectivo=?, stockMaximo=?,stockMinimo=? WHERE codigoProducto=? ";
 		PreparedStatement instrucion =(PreparedStatement) ClassBaseDeDatos.getConnection().prepareStatement(sql);
 		
 		

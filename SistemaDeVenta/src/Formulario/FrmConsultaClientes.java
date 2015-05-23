@@ -76,7 +76,7 @@ public class FrmConsultaClientes extends JInternalFrame {
 		getContentPane().add(scrollPane);
 		
 		try {
-			modeloTabla = new ModeloTabla("codigoProveedor as 'Codigo del Proveedor' , nombres as Nombres , apellidos as Apellidos , fechaNacimiento as 'Fecha de Nacimiento',sexo as Sexo, estadoCivil as 'Estado Civil', cedula as Cedula, idCiudad as Ciudad, direccion as Direccion, email as 'Correo Electronico', celular as Celular, ocupacion as Ocupacion  ", "tblproveedor", "1");
+			modeloTabla = new ModeloTabla("codigoCliente as 'Codigo del Cliente' , nombres as Nombres , apellidos as Apellidos , fechaNacimiento as 'Fecha de Nacimiento',sexo as Sexo, estadoCivil as 'Estado Civil', cedula as Cedula, idCiudad as Ciudad, direccion as Direccion, email as 'Correo Electronico', celular as Celular, ocupacion as Ocupacion  ", "tblclientes", "1");
 			modeloTabla.realizarBusqueda();
 		} catch (ClassNotFoundException | SQLException e1) {
 			
