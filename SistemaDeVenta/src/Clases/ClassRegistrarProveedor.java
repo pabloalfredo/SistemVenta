@@ -179,6 +179,7 @@ public class ClassRegistrarProveedor {
 		instrucion.setString(11, getCelular());
 		instrucion.setString(12, getOcupacion());
 		instrucion.execute();
+		//fin
 	}
 	
 	// ESTE METODO REALIZA LA ACTUALIZACION DE PROVEEDORES
