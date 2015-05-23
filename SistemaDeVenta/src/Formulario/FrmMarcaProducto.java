@@ -7,10 +7,14 @@ import javax.swing.JButton;
 
 
 
+
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 
 
+
+import java.awt.Toolkit;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -136,7 +140,7 @@ public class FrmMarcaProducto extends JInternalFrame {
 		txtMarcaProducto.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
 		txtMarcaProducto.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Nombre de la Categoria");
+		JLabel lblNewLabel = new JLabel("Nombre de la Marca");
 		lblNewLabel.setBounds(6, 26, 167, 16);
 		panel_1.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
@@ -234,6 +238,11 @@ public class FrmMarcaProducto extends JInternalFrame {
 		button_2.setIcon(new ImageIcon(FrmMarcaProducto.class.getResource("/Recursos/salir.png")));
 		button_2.setForeground(new Color(0, 0, 128));
 		button_2.setFont(new Font("SansSerif", Font.BOLD, 18));
+		
+		Dimension tamFrame=this.getSize();//para obtener las dimensiones del frame
+        Dimension tamPantalla=Toolkit.getDefaultToolkit().getScreenSize();      //para obtener el tamanio de la pantalla
+        setLocation((tamPantalla.width-tamFrame.width)/2, (tamPantalla.height-tamFrame.height)/2);  //para posicionar
+        
 		
 	}
 	private void agregarMarcaProducto(final JButton btnAgregarMarca) {

@@ -121,7 +121,7 @@ public class RegistroDeUsuarios extends Variable {
 	public void insertarNuevoUsuario () throws ClassNotFoundException, SQLException
 	{
 		String sql = "INSERT INTO tblusuario (nombreUsuario, contrasena, tipoUsuario, nombre, apellidos, fechaNacimiento, telefono, email, pConfiguracion, pBackup, pNUsuario, pCUsuario, pSalirSistema, pRVenta, pCVenta, pRCompra, pCCompra, pNArticulo, pCArticulo, pNCliente, pCCliente, pNProveedores, pCProveedores, pTablasAxu, pReporteVenta, pReporteCompras, pRArticulo, pRCliente, pRProveedores, pCajaDiaria, pInformeVentaD, pBusquedaFactura, pListaArti, pManualUsu, pAcercaApli)"
-				+ "VALUES (?,md5(?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement  instrucion = (PreparedStatement) ClassBaseDeDatos.getConnection().prepareStatement(sql);
 		instrucion.setString(1, getNombreDeUsuario());
 		instrucion.setString(2, getContrasena());

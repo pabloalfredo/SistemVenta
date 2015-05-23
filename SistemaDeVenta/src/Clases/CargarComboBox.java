@@ -41,22 +41,26 @@ public class CargarComboBox {
 		
 		}*/
 	
-	public void cargarComboBoxTipoUsuario(JComboBox<Object> cmbTipoUsuario) {//para llenar el comboBox
+	public boolean cargarComboBoxTipoUsuario(JComboBox<Object> cmbTipoUsuario) {//para llenar el comboBox
 		
-			vectorTipoUsuario = new Vector<>();
-			ResultSet rs;
-			try {
+		vectorTipoUsuario = new Vector<>();
+		ResultSet rs;
+		try {
 				rs = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery("SELECT idTipoUsuario, descripcion FROM tbltipousuario");
-				while (rs.next()){
-					ClassTipoUsuario tipoUsuario = new ClassTipoUsuario(rs.getInt(1), rs.getString(2));	
-					vectorTipoUsuario.add(tipoUsuario);
-					cmbTipoUsuario.addItem(tipoUsuario.getDescripcion());
+				if(rs != null){
+					while (rs.next()){
+						ClassTipoUsuario tipoUsuario = new ClassTipoUsuario(rs.getInt(1), rs.getString(2));	
+						vectorTipoUsuario.add(tipoUsuario);
+						cmbTipoUsuario.addItem(tipoUsuario.getDescripcion());
 					}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+					return true;
+				}
+				else {
+					return false;}
+		} catch (ClassNotFoundException|SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	
 	}
 	

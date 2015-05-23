@@ -1,5 +1,6 @@
 package Formulario;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
@@ -17,6 +18,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -359,8 +361,10 @@ public class FrmRegistroDeProductos extends JInternalFrame {
 		cargarDatosEnTabla();// LLAMADA AL METODO PARA CARGAR LOS DATOS EN LA TABLA
 		table = new JTable(modeloTabla);
 		table.setToolTipText("Doble Clic Para Editar Articulo");
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		editarArticulo(table); // LLAMADA AL METEDO EDITAR ATICULOS CUANDO SE HAGA 2 CLICK EN LA FILA SELECCIONADA
 		
+		ajustarTabla(table);
 		scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table);
 		
@@ -485,6 +489,24 @@ public class FrmRegistroDeProductos extends JInternalFrame {
 		
 	}// FIN DEL CONSTRUCTOR 
 
+	/**
+	 * @param tabla 
+	 * 
+	 */
+	private void ajustarTabla(JTable tabla) {
+		
+		for (int columna = 0; columna < tabla.getColumnCount(); columna++)
+		{
+			int anchura = 0;
+			for (int fila = 0; fila < tabla.getRowCount(); fila++)
+			{				
+				TableCellRenderer renderer = tabla.getCellRenderer(fila, columna);
+				Component componente = tabla.prepareRenderer(renderer, fila, columna); 
+				anchura = Math.max(componente.getPreferredSize().width, anchura);
+			}
+			tabla.getColumnModel().getColumn(columna).setPreferredWidth(anchura);
+		}
+	}
 // METODO QUE LLAMA AL FORMULARIO AGREGAR UNA NUEVA MARCA PARA LUEGO SER MOSTRADA EN EL COMBOBOX CATEGORIA 
 	private void mtdAgregarMarca(JButton btnMarca) {
 		btnMarca.addActionListener(new ActionListener() {
@@ -499,7 +521,7 @@ public class FrmRegistroDeProductos extends JInternalFrame {
 	private void mtdAgregarUnidad(JButton btnUnidad) {
 		btnUnidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FrmMarcaProducto frm = new FrmMarcaProducto();
+				FrmUnidadDeMedida frm = new FrmUnidadDeMedida();
 				getDesktopPane().add(frm);
 				frm.setVisible(true);
 			}
@@ -815,88 +837,10 @@ public class FrmRegistroDeProductos extends JInternalFrame {
 		tabbedPane.setSelectedIndex(0);
 	}
 	
-// VALIDAR QUE LOS CONTROLES NO ESTEN VACIOS 
-	/*public void validarCamposVacios(){
-		
-		try
-		{
-			if(txtCodigoProducto.getText().trim().length() <=0 )
-			{
-				JOptionPane.showMessageDialog(null, "El Codigo del Articulo no Puede Estar en Blanco");
-				txtCodigoProducto.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(178, 34, 34)));
-				txtCodigoProducto.requestFocus();
-				return;
-			}
-			else
-			{
-				txtCodigoProducto.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-			}
-			if(txtDescripcion.getText().trim().length() <=0 )
-			{
-				JOptionPane.showMessageDialog(null, "El Nombre del Articulo no Puede Estar en Blanco");
-				txtDescripcion.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(178, 34, 34)));
-				txtDescripcion.requestFocus();
-				return;
-			}
-			else
-			{
-				txtDescripcion.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-			}
-			if(txtCostoProducto.getText().trim().length() <=0 )
-			{
-				JOptionPane.showMessageDialog(null, "El Nombre del Articulo no Puede Estar en Blanco");
-				txtCostoProducto.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(178, 34, 34)));
-				txtCostoProducto.requestFocus();
-				return;
-			}
-			else
-			{
-				txtCostoProducto.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-			}
-			if(txtEfectivo.getText().trim().length() <=0 )
-			{
-				JOptionPane.showMessageDialog(null, "El Precio de Venta del Articulo no Puede Estar en Blanco");
-				txtEfectivo.requestFocus();
-				return;
-			}
-			else
-			{
-				txtEfectivo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-			}
-			
-			if(txtStockMaximo.getText().trim().length() <=0 )
-			{
-				JOptionPane.showMessageDialog(null, "Establesca un Stock Maximo para el Articulo");
-				txtStockMaximo.requestFocus();
-				return;
-			}
-			else
-			{
-				txtStockMaximo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-			}
-			
-			if(txtStockMinimo.getText().trim().length() <=0 )
-			{
-				JOptionPane.showMessageDialog(null, "Establesca un Stock Minino para el Articulo");
-				txtStockMinimo.requestFocus();
-				return;
-			}
-			else
-			{
-				txtStockMinimo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-			}
-		}
-		catch(IllegalFormatException e)
-		{
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
-		
-	}*/
-	// VALIDAR QUE LOS CONTROLES NO ESTEN VACIOS 
+//METODO PARA VALIDAR QUE LOS CAMPOS NO ESTEN VACIOS 
 	public void validarCamposVacios()
 	{
-		if(
-			    ValidarTextField.validarTextField("Codigo", txtCodigoProducto) ==0
+		if(ValidarTextField.validarTextField("Codigo", txtCodigoProducto) ==0
 			||  ValidarTextField.validarTextField("Descripcion", txtDescripcion) ==0
 			||  ValidarTextField.validarTextField("Costo Producto", txtCostoProducto)==0
 			||  ValidarTextField.validarTextField("Efectivo", txtEfectivo)==0
@@ -905,7 +849,7 @@ public class FrmRegistroDeProductos extends JInternalFrame {
 			{
 				JOptionPane.showMessageDialog(null, "Este campo no puede estar en blanco");
 			}
-		}
+	}
 	
 // BUSCAR ARTICULO POR CODIGO 
 	private void busquedaPorCodigoProducto() {

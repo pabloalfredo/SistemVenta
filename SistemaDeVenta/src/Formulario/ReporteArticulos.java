@@ -51,7 +51,7 @@ public class ReporteArticulos extends JInternalFrame {
 					dispose();
 				}
 			});
-			btnNewButton.setBounds(897, 491, 90, 28);
+			btnNewButton.setBounds(897, 10, 90, 28);
 			getContentPane().add(btnNewButton);
 					
 		}

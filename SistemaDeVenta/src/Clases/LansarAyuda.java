@@ -13,7 +13,7 @@ public class LansarAyuda {
 		
 		//String ubicacionReporte = System.getProperty("user.dir")+"/Recursos/ayuda.chm";
 		try{
-			File archivo = new  File(getClass().getResource("").toURI());
+			File archivo = new  File(getClass().getResource("Recursos/ayuda.chm").toURI());
 			Desktop.getDesktop().open(archivo);
 		}
 		catch(IOException | URISyntaxException ex){

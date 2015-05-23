@@ -1,7 +1,10 @@
 package Clases;
 
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -14,10 +17,11 @@ public class ClassRegistrarProducto {
 	private double efectivo;
 	private int stockMaximo;
 	private int stockMninimo;
-	private int cantidad;
 	private ClassCategoriaProducto CategoriaProducto;   // VARIABLE TIPO CLASS CATEGORIA PRODUCTO
 	private ClassMarcaProducto MarcaProducto;
 	private ClassUnidadMedida UnidadMedida;
+	private int existencia;
+	
 	
 	//CONSTRUCTOR QUE RESIVE 9 PARAMETROS
 	public ClassRegistrarProducto (long CodigoProducto, String Descripcion, ClassCategoriaProducto CategoriaProducto, ClassMarcaProducto MarcaProducto, ClassUnidadMedida UnidadMedida, double CostoProudcto, double Efectivo, int StockMasimo, int StockMinino){
@@ -36,6 +40,18 @@ public class ClassRegistrarProducto {
 		setCodigoProducto(CodigoProducto);
 		setDescripcion(Descripcion);
 		setEfectivo(Efectivo);
+	}
+	public ClassRegistrarProducto ( long CodigoProducto, int existencia)
+	{
+		setCodigoProducto(CodigoProducto);
+		setExistencia(existencia);
+		
+	}
+	public int getExistencia() {
+		return existencia;
+	}
+	public void setExistencia(int existencia) {
+		this.existencia = existencia;
 	}
 	
 	public long getCodigoProducto() {
@@ -67,12 +83,6 @@ public class ClassRegistrarProducto {
 	}
 	public int getStockMninimo() {
 		return stockMninimo;
-	}
-	public int getCantidad(){
-		return cantidad;
-	}
-	public void setCantidad(int cantidad){
-		this.cantidad = cantidad;
 	}
 	public void setCodigoProducto(long codigoProducto) {
 		this.codigoProducto = codigoProducto;
@@ -108,7 +118,7 @@ public class ClassRegistrarProducto {
 	/// ESTE METEDO REALIZA LA INSERCION DE PRODUCTOS EN LA BASE DE DATOSS
 	public void registrarNuevoArticulo() throws ClassNotFoundException, SQLException {
 		
-		String sql = "INSERT INTO tblarticulos(codigoProducto, nombreArticulo,idCategoriaProducto,idMarcaProducto,idUnidadMedida, costo, efectivo, stockMaximo,stockMinimo)"
+		String sql = "INSERT INTO tblarticulos(codigoProducto, descripcion,idCategoriaProducto,idMarcaProducto,idUnidadMedida, costo, efectivo, stockMaximo,stockMinimo)"
 				   + "VALUES(?,?,?,?,?,?,?,?,?)";
 		PreparedStatement instrucion = (PreparedStatement) ClassBaseDeDatos.getConnection().prepareStatement(sql);
 		instrucion.setLong(1, getCodigoProducto());
@@ -125,7 +135,7 @@ public class ClassRegistrarProducto {
 	
 	// ESTE METODO REALIZA LA ACTUALIZACION DE PRODUCTOS
 	public void actualizarAticulos() throws ClassNotFoundException, SQLException{
-		String sql = "UPDATE tblarticulos SET nombreArticulo =?, idCategoriaProducto=?,idMarcaProducto=?, idUnidadMedida=?, costo=?, efectivo=?, stockMaximo=?,stockMinimo=? WHERE codigoProducto=? ";
+		String sql = "UPDATE tblarticulos SET descripcion =?, idCategoriaProducto=?,idMarcaProducto=?, idUnidadMedida=?, costo=?, efectivo=?, stockMaximo=?,stockMinimo=? WHERE codigoProducto=? ";
 		PreparedStatement instrucion =(PreparedStatement) ClassBaseDeDatos.getConnection().prepareStatement(sql);
 		
 		
@@ -141,4 +151,35 @@ public class ClassRegistrarProducto {
 		instrucion.execute();
 		
 	}
+	
+	public boolean validarExistenciaInventario() throws ClassNotFoundException, SQLException{//SE OBTIENE LA CANTIDAD DE LA TABLA PARA RESTARAR DEL INVENTARIO
+		
+		int existenciaActual=0;
+		int existenciaActualizada=0;
+		ResultSet rs;
+		try {
+			rs = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery("select existencia from tblarticulos where codigoProducto ='"+getCodigoProducto() +"'");
+				while (rs.next()){
+					existenciaActual = rs.getInt(1);
+				}
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		existenciaActualizada= existenciaActual - getExistencia();
+		
+		if (existenciaActualizada >=0){
+		return true;
+		}
+		
+		else {
+			JOptionPane.showMessageDialog(null, "El producto No. " + getCodigoProducto() + " solo tiene " + existenciaActual+ " en el inventario" );
+			return false;
+		}
+		
+	
+}
 }

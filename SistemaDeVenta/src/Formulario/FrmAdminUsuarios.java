@@ -4,6 +4,7 @@ package Formulario;
 import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JPanel;
@@ -25,6 +26,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.html.parser.Parser;
 import javax.swing.JComboBox;
@@ -36,6 +38,7 @@ import Clases.ClassTipoUsuario;
 import Clases.ModeloTabla;
 import Clases.RegistroDeUsuarios;
 import Clases.ValidarTextField;
+import Clases.ValidarTextFieldTest;
 import Clases.Variable;
 
 import java.awt.event.ActionListener;
@@ -331,7 +334,7 @@ public class FrmAdminUsuarios extends JInternalFrame {
 		panel.add(cmbTipoUsuario);
 		
 		try {
-			modeloTabla = new ModeloTabla("nombreUsuario as 'Nombre De Usuario' , contrasena as Contrasena , tbltipousuario.descripcion as 'Tipo Usuario', nombre as Nombres, apellidos as Apellidos  ", "tblusuario, tbltipousuario", "tblusuario.tipoUsuario = tbltipousuario.idTipoUsuario");
+			modeloTabla = new ModeloTabla("nombreUsuario as 'Nombre De Usuario' , contrasena as Contrasena , tbltipousuario.descripcion as 'Tipo Usuario', nombre as Nombres, apellidos as Apellidos, telefono AS 'Num. Telefono', email AS Correo, fechanacimiento ", "tblusuario INNER JOIN  tbltipousuario ON tblusuario.tipoUsuario = tbltipousuario.idTipoUsuario", "1");
 			modeloTabla.realizarBusqueda();
 		} catch (ClassNotFoundException | SQLException e1) {
 			
@@ -346,49 +349,49 @@ public class FrmAdminUsuarios extends JInternalFrame {
 		
 		chckbxConfiguracion = new JCheckBox("Configuracion");
 		chckbxConfiguracion.setForeground(new Color(0, 0, 128));
-		chckbxConfiguracion.setFont(new Font("SansSerif", Font.BOLD, 10));
+		chckbxConfiguracion.setFont(new Font("SansSerif", Font.BOLD, 12));
 		chckbxConfiguracion.setBounds(6, 6, 195, 18);
 		panel_2.add(chckbxConfiguracion);
 		
 		chckbxBackuprestore = new JCheckBox("Backup/Restore");
 		chckbxBackuprestore.setForeground(new Color(0, 0, 128));
-		chckbxBackuprestore.setFont(new Font("SansSerif", Font.BOLD, 10));
+		chckbxBackuprestore.setFont(new Font("SansSerif", Font.BOLD, 12));
 		chckbxBackuprestore.setBounds(6, 36, 195, 18);
 		panel_2.add(chckbxBackuprestore);
 		
 		chckbxRealizarUnaVenta = new JCheckBox("Realizar una Venta");
 		chckbxRealizarUnaVenta.setForeground(new Color(0, 0, 128));
-		chckbxRealizarUnaVenta.setFont(new Font("SansSerif", Font.BOLD, 10));
+		chckbxRealizarUnaVenta.setFont(new Font("SansSerif", Font.BOLD, 12));
 		chckbxRealizarUnaVenta.setBounds(6, 66, 195, 18);
 		panel_2.add(chckbxRealizarUnaVenta);
 		
 		chckbxConsultarComprasRealizadas = new JCheckBox("Consultar  Compras");
 		chckbxConsultarComprasRealizadas.setForeground(new Color(0, 0, 128));
-		chckbxConsultarComprasRealizadas.setFont(new Font("SansSerif", Font.BOLD, 10));
+		chckbxConsultarComprasRealizadas.setFont(new Font("SansSerif", Font.BOLD, 12));
 		chckbxConsultarComprasRealizadas.setBounds(6, 156, 195, 18);
 		panel_2.add(chckbxConsultarComprasRealizadas);
 		
 		chckbxRealizarCompras = new JCheckBox("Realizar Compras");
 		chckbxRealizarCompras.setForeground(new Color(0, 0, 128));
-		chckbxRealizarCompras.setFont(new Font("SansSerif", Font.BOLD, 10));
+		chckbxRealizarCompras.setFont(new Font("SansSerif", Font.BOLD, 12));
 		chckbxRealizarCompras.setBounds(6, 126, 195, 18);
 		panel_2.add(chckbxRealizarCompras);
 		
 		chckbxConsultarVentasRealizadas = new JCheckBox("Consultar Ventas Realizadas");
 		chckbxConsultarVentasRealizadas.setForeground(new Color(0, 0, 128));
-		chckbxConsultarVentasRealizadas.setFont(new Font("SansSerif", Font.BOLD, 10));
+		chckbxConsultarVentasRealizadas.setFont(new Font("SansSerif", Font.BOLD, 12));
 		chckbxConsultarVentasRealizadas.setBounds(6, 96, 195, 18);
 		panel_2.add(chckbxConsultarVentasRealizadas);
 		
 		chckbxConsultarArticulos = new JCheckBox("Consultar Articulos");
 		chckbxConsultarArticulos.setForeground(new Color(0, 0, 128));
-		chckbxConsultarArticulos.setFont(new Font("SansSerif", Font.BOLD, 10));
+		chckbxConsultarArticulos.setFont(new Font("SansSerif", Font.BOLD, 12));
 		chckbxConsultarArticulos.setBounds(6, 211, 195, 18);
 		panel_2.add(chckbxConsultarArticulos);
 		
 		chckbxCrearNuevoArticulos = new JCheckBox("Crear Nuevo Articulos");
 		chckbxCrearNuevoArticulos.setForeground(new Color(0, 0, 128));
-		chckbxCrearNuevoArticulos.setFont(new Font("SansSerif", Font.BOLD, 10));
+		chckbxCrearNuevoArticulos.setFont(new Font("SansSerif", Font.BOLD, 12));
 		chckbxCrearNuevoArticulos.setBounds(6, 181, 195, 18);
 		panel_2.add(chckbxCrearNuevoArticulos);
 		
@@ -502,7 +505,7 @@ public class FrmAdminUsuarios extends JInternalFrame {
 		
 		chckbxRegistrarNuevoUsuario = new JCheckBox("Registrar Nuevo Usuario");
 		chckbxRegistrarNuevoUsuario.setForeground(new Color(0, 0, 128));
-		chckbxRegistrarNuevoUsuario.setFont(new Font("SansSerif", Font.BOLD, 10));
+		chckbxRegistrarNuevoUsuario.setFont(new Font("SansSerif", Font.BOLD, 12));
 		chckbxRegistrarNuevoUsuario.setBounds(6, 238, 195, 18);
 		panel_2.add(chckbxRegistrarNuevoUsuario);
 		
@@ -519,6 +522,7 @@ public class FrmAdminUsuarios extends JInternalFrame {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		editarUsuarios(table); // LLAMADA AL METOD PARA EDITAR USUARIO CUANDO SE HAGA 2 CLICK EN LA FILA 
 		//scrollPane.setColumnHeaderView(table);
+		ajustarTabla(table);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblNombreDeUsuario = new JLabel("Nombre de Usuario");
@@ -922,7 +926,7 @@ public class FrmAdminUsuarios extends JInternalFrame {
 						Variable.consultarArticulos,Variable.registrarNuevoCliente,Variable.consultarClientes,Variable.registrarNuevoProveedor,Variable.consultarProveedores, Variable.tablasAuxiliares,
 						Variable.reporteDeVentas,Variable.reporteDecompras,Variable.reporteDeArticulos,Variable.reporteDeClientes,Variable.reportedeProveedores,Variable.cajaDiaria,Variable.informeDeVentaDiaria,
 						Variable.busquedaFacturasdemitidas,Variable.listadoDeArticulos,Variable.manualDeUsuario,Variable.acercaDeLaAplicacion );
-				if(nombreUsuarioObtendio == txtNombreDeUsuario.getText())
+				if(nombreUsuarioObtendio.equals(txtNombreDeUsuario.getText()))
 				{
 					JOptionPane.showMessageDialog(null, "Existe un Usuario con Este Nombre de Usuario, Intento Con Otro");
 					txtNombreDeUsuario.requestFocus();
@@ -951,36 +955,16 @@ public class FrmAdminUsuarios extends JInternalFrame {
 // METODO PARA VALIDAR LOS CAMPOS VACIOS	
 	public void mtdValidarCamposVacios()
 	{
-		if(txtNombres.getText().trim().length()<=0)
-		{
-			JOptionPane.showMessageDialog(null, "No Puede Dejar el Nombre en Blanco");
-			txtNombres.requestFocus();
-			return;
-		}
-		if(txtApellido.getText().trim().length()<=0)
-		{
-			JOptionPane.showMessageDialog(null, "No Puede Dejar el Nombre en Blanco");
-			txtApellido.requestFocus();
-			return;
-		}
-		if( txtNumeroTelefono.getText().trim().length()<=0)
-		{
-			JOptionPane.showMessageDialog(null, "No Puede Dejar el Telefono en Blanco");
-			txtNumeroTelefono.requestFocus();
-			return;
-		}
-		if(txtNombreDeUsuario.getText().trim().length()<=0)
-		{
-			JOptionPane.showMessageDialog(null, "No Puede Dejar el Nombre de Usuario en Blanco");
-			txtNombreDeUsuario.requestFocus();
-			return;
-		}
-		if(txtContrasena.getText().trim().length()<=0)
-		{
-			JOptionPane.showMessageDialog(null, "No Puede Dejar la Contrena en Blanco");
-			txtContrasena.requestFocus();
-			return;
-		}
+		if(ValidarTextField.validarTextField("Nombre", txtNombres) ==0
+				||  ValidarTextField.validarTextField("Apellido", txtApellido) ==0
+				||  ValidarTextField.validarTextField("Fecha Nacimiento", txtFechaNacimiento)==0
+				||  ValidarTextField.validarTextField("Telefono", txtNumeroTelefono)==0
+				|| ValidarTextField.validarTextField("Correo", txtCorreo)==0
+				|| ValidarTextField.validarTextField("Nombre de Usuario", txtNombreDeUsuario)==0
+				|| ValidarTextField.validarTextField("Contrasena", txtContrasena)==0)
+				{
+					JOptionPane.showMessageDialog(null, "Este campo no puede estar en blanco");
+				}
 		
 		
 	}
@@ -1087,12 +1071,13 @@ public class FrmAdminUsuarios extends JInternalFrame {
 	{
 		tabbedPane.setSelectedIndex(0);	 // manda al curso al panel de registro de usuario
 		txtNombres.setEnabled(true);
+		txtNombres.requestFocusInWindow();
 		txtApellido.setEnabled(true);
 		txtFechaNacimiento.setEnabled(true);
 		txtNumeroTelefono.setEnabled(true);
 		txtCorreo.setEnabled(true);
 		txtNombreDeUsuario.setEnabled(true);
-		txtContrasena.setEnabled(true);
+		txtContrasena.setEnabled(true); 
 		cmbTipoUsuario.setEnabled(true);
 		chckbxConfiguracion.setEnabled(true);
 		chckbxBackuprestore.setEnabled(true);
@@ -1127,5 +1112,24 @@ public class FrmAdminUsuarios extends JInternalFrame {
 		btnCancelar.setEnabled(true);
 		btnEditar.setEnabled(false);
 		btnSalir.setEnabled(true);	
+	}
+	
+	/**
+	 * @param tabla 
+	 * 
+	 */
+	private void ajustarTabla(JTable tabla) {
+		
+		for (int columna = 0; columna < tabla.getColumnCount(); columna++)
+		{
+			int anchura = 0;
+			for (int fila = 0; fila < tabla.getRowCount(); fila++)
+			{				
+				TableCellRenderer renderer = tabla.getCellRenderer(fila, columna);
+				Component componente = tabla.prepareRenderer(renderer, fila, columna); 
+				anchura = Math.max(componente.getPreferredSize().width, anchura);
+			}
+			tabla.getColumnModel().getColumn(columna).setPreferredWidth(anchura);
+		}
 	}
 }

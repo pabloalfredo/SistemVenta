@@ -44,7 +44,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class FrmPrincipal {
 
 	private JFrame frmSistemaDeVenta;
-	private String nombreDelUsuario;
+	private String nombreDelUsuario,tipoDeUsuario;
 	private JLabel tipousuario;
 	private JLabel usuario;
 	private JMenuItem mntmResumenDelDia;
@@ -308,11 +308,11 @@ public class FrmPrincipal {
 		mantenimiento.add(separator_3);
 		
 		JMenu mnTablas = new JMenu("Tablas Auxiliares");
-		mnTablas.setMnemonic('T');
+		/*mnTablas.setMnemonic('T');
 		mnTablas.setFont(new Font("Dialog", Font.BOLD, 12));
-		mantenimiento.add(mnTablas);
+		mantenimiento.add(mnTablas);*/
 		
-		JMenuItem mItemMarcas = new JMenuItem("Marcas");
+		/*JMenuItem mItemMarcas = new JMenuItem("Marcas");
 		mnTablas.setMnemonic('M');
 		mItemMarcas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -321,7 +321,7 @@ public class FrmPrincipal {
 			}
 		});
 		mItemMarcas.setFont(new Font("SansSerif", Font.BOLD, 12));
-		mnTablas.add(mItemMarcas);
+		mnTablas.add(mItemMarcas);*/
 		
 		JMenuItem mItemCategoria = new JMenuItem("Categoria");
 		mItemCategoria.setMnemonic('C');
@@ -331,7 +331,7 @@ public class FrmPrincipal {
 				PosicionarInternalFrameCentroPantalla.centrarFormularioEnPantalla(desktopPane, frm);
 			}
 		});
-		mItemCategoria.setFont(new Font("SansSerif", Font.BOLD, 12));
+		/*mItemCategoria.setFont(new Font("SansSerif", Font.BOLD, 12));
 		mnTablas.add(mItemCategoria);
 		
 		JMenuItem mItemUnidadDeMedina = new JMenuItem("Unidad de Medina");
@@ -344,9 +344,9 @@ public class FrmPrincipal {
 			}
 		});
 		mItemUnidadDeMedina.setFont(new Font("SansSerif", Font.BOLD, 12));
-		mnTablas.add(mItemUnidadDeMedina);
+		mnTablas.add(mItemUnidadDeMedina);*/
 		
-		JMenuItem mItemCiudad = new JMenuItem("Ciudad");
+		/*JMenuItem mItemCiudad = new JMenuItem("Ciudad");
 		mItemCiudad.setMnemonic('D');
 		mItemCiudad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -355,7 +355,7 @@ public class FrmPrincipal {
 			}
 		});
 		mItemCiudad.setFont(new Font("SansSerif", Font.BOLD, 12));
-		mnTablas.add(mItemCiudad);
+		mnTablas.add(mItemCiudad);*/
 		
 		JMenu mnReportes = new JMenu("Reportes");
 		mnReportes.setMnemonic('R');
@@ -503,10 +503,6 @@ public class FrmPrincipal {
 		menuItem_8.setFont(new Font("SansSerif", Font.BOLD, 12));
 		mnBusqueda.add(menuItem_8);
 		
-		JMenuItem menuItem_9 = new JMenuItem("Proveedores");
-		menuItem_9.setFont(new Font("SansSerif", Font.BOLD, 12));
-		mnBusqueda.add(menuItem_9);
-		
 		JMenu mnAyuda = new JMenu("Ayuda");
 		mnAyuda.setMnemonic('A');
 		mnAyuda.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/Recursos/imagenMenu/D1EEE4A5B.png")));
@@ -612,8 +608,8 @@ public class FrmPrincipal {
 		usuario.setForeground(new Color(0, 100, 0));
 		usuario.setFont(new Font("SansSerif", Font.BOLD, 14));
 		toolBar_1.add(usuario);
-		
-	    tipousuario = new JLabel("(Administrador)");
+		tipoDeUsuario = null;
+	    tipousuario = new JLabel(tipoDeUsuario);
 		tipousuario.setFont(new Font("Segoe Print", Font.BOLD, 13));
 		toolBar_1.add(tipousuario);
 		
@@ -694,10 +690,12 @@ public class FrmPrincipal {
 		frmSistemaDeVenta.setVisible(true);
 	}
 
-	public void nombreDelUsuario(String nombreObtenido) {
+	public void nombreDelUsuario(String nombreObtenido, String tipoUsuario) {
 		nombreDelUsuario = nombreObtenido;
+		tipoDeUsuario = tipoUsuario;
 		usuario.setText(nombreDelUsuario);
+		tipousuario.setText("("+tipoDeUsuario+")");
+		
 			
 	}
-	
 }

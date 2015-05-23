@@ -5,9 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import javax.swing.JButton;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 
+
+import java.awt.Toolkit;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -234,7 +237,12 @@ public class FrmCiudad extends JInternalFrame {
 		});
 		btnSalir.setIcon(new ImageIcon(FrmCiudad.class.getResource("/Recursos/salir.png")));
 		btnSalir.setForeground(new Color(0, 0, 128));
-		btnSalir.setFont(new Font("SansSerif", Font.BOLD, 18));	        
+		btnSalir.setFont(new Font("SansSerif", Font.BOLD, 18));	      
+		
+		Dimension tamFrame=this.getSize();//para obtener las dimensiones del frame
+        Dimension tamPantalla=Toolkit.getDefaultToolkit().getScreenSize();      //para obtener el tamanio de la pantalla
+        setLocation((tamPantalla.width-tamFrame.width)/2, (tamPantalla.height-tamFrame.height)/2);  //para posicionar
+        
 
 	}
 

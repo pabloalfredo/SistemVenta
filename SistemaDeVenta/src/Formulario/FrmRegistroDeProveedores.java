@@ -742,41 +742,6 @@ public class FrmRegistroDeProveedores extends JInternalFrame {
 			
 				//validarCamposVacios(); // LLAMADA A LA FUNCION VALIDAR CAMPOS VACIOS PARA QUE NO SE DEJEN CAMPOS VACIOS CUANDO SE DE ENTER 
 				// VALIDA QUE LOS CAMPOS NO ESTEN VACIOS 
-				if(txtCodigoProveedor.getText().trim().length() <=0 )
-				{
-					JOptionPane.showMessageDialog(null, "El Codigo del Proveedor no Puede Estar en Blanco");
-					txtCodigoProveedor.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(178, 34, 34)));
-					txtCodigoProveedor.requestFocus();
-					return;
-				}
-				else
-				{
-					txtCodigoProveedor.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-				}
-
-				if(txtNombre.getText().trim().length() <=0 )
-				{
-					JOptionPane.showMessageDialog(null, "El Nombre del Proveedor no Puede Estar en Blanco");
-					txtNombre.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(178, 34, 34)));
-					txtNombre.requestFocus();
-					return;
-				}
-				else
-				{
-					txtNombre.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-				}
-
-				if(txtApellido.getText().trim().length() <=0 )
-				{
-					JOptionPane.showMessageDialog(null, "El Apellido del Proveedor no Puede Estar en Blanco");
-					txtApellido.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(178, 34, 34)));
-					txtApellido.requestFocus();
-					return;
-				}
-				else
-				{
-					txtApellido.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-				}
 				
 				int codigoObtenido = 0;
 				ResultSet rs;
@@ -1003,42 +968,9 @@ public class FrmRegistroDeProveedores extends JInternalFrame {
 	
 	
 	// VALIDAR QUE LOS CONTROLES NO ESTEN VACIOS 
-	public void validarCamposVacios(){	
-		if(txtCodigoProveedor.getText().trim().length() <=0 )
-		{
-			JOptionPane.showMessageDialog(null, "El Codigo del Proveedor no Puede Estar en Blanco");
-			txtCodigoProveedor.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(178, 34, 34)));
-			txtCodigoProveedor.requestFocus();
-			return;
-		}
-		else
-		{
-			txtCodigoProveedor.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-		}
-
-		if(txtNombre.getText().trim().length() <=0 )
-		{
-			JOptionPane.showMessageDialog(null, "El Nombre del Proveedor no Puede Estar en Blanco");
-			txtNombre.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(178, 34, 34)));
-			txtNombre.requestFocus();
-			return;
-		}
-		else
-		{
-			txtNombre.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-		}
-
-		if(txtApellido.getText().trim().length() <=0 )
-		{
-			JOptionPane.showMessageDialog(null, "El Apellido del Proveedor no Puede Estar en Blanco");
-			txtApellido.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(178, 34, 34)));
-			txtApellido.requestFocus();
-			return;
-		}
-		else
-		{
-			txtApellido.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 128, 128)));
-		}
+	public void validarCamposVacios()
+	{
+		
 	}
 	
 	// BUSCAR ARTICULO POR CODIGO 

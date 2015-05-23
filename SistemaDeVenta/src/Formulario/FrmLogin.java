@@ -20,7 +20,7 @@ public class FrmLogin extends JFrame{
 	private static final long serialVersionUID = 1L;
 			private JButton btnAceptar;
 	        private JButton btnCancelar;
-	        String nombreObtenido;
+	        String nombreObtenido, tipoUsuario;
 	        private JTextField txtNombreUsuario;
 	        private JPasswordField txtContrasena;
 	      
@@ -206,7 +206,7 @@ public class FrmLogin extends JFrame{
 			setVisible(false);
 			FrmPrincipal frm = new FrmPrincipal();
 			frm.mostrarFormulario();
-			frm.nombreDelUsuario(nombreObtenido);
+			frm.nombreDelUsuario(nombreObtenido,tipoUsuario);
 		}
 		
 		else{
@@ -218,13 +218,12 @@ public class FrmLogin extends JFrame{
 	}
 	public void mtdValidarPermisos() {
 		String nombreUsuarioObtenido = null;
-		String contrasenaObtenida = null;
 		ResultSet resultado;
 		try{
-				resultado = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery("SELECT nombreUsuario, contrasena, nombre, pConfiguracion, pBackup, pNUsuario, pCUsuario, pSalirSistema, pRVenta, pCVenta, pRCompra, pCCompra, pNArticulo, pCArticulo, pNCliente, pCCliente, pNProveedores, pCProveedores, pTablasAxu, pReporteVenta, pReporteCompras, pRArticulo, pRCliente, pRProveedores, pCajaDiaria, pInformeVentaD, pBusquedaFactura, pListaArti, pManualUsu, pAcercaApli FROM tblusuario WHERE nombreUsuario = '"+txtNombreUsuario.getText() +"'");
+				resultado = (ResultSet) ClassBaseDeDatos.getConnection().createStatement().executeQuery("SELECT nombreUsuario, tbltipousuario.descripcion, nombre, pConfiguracion, pBackup, pNUsuario, pCUsuario, pSalirSistema, pRVenta, pCVenta, pRCompra, pCCompra, pNArticulo, pCArticulo, pNCliente, pCCliente, pNProveedores, pCProveedores, pTablasAxu, pReporteVenta, pReporteCompras, pRArticulo, pRCliente, pRProveedores, pCajaDiaria, pInformeVentaD, pBusquedaFactura, pListaArti, pManualUsu, pAcercaApli FROM tblusuario INNER JOIN tbltipousuario ON tblusuario.tipoUsuario = tbltipousuario.idTipoUsuario  WHERE nombreUsuario = '"+txtNombreUsuario.getText() +"'");
 				while(resultado.next()){
 					nombreUsuarioObtenido = resultado.getString(1);
-					contrasenaObtenida = resultado.getString(2);
+					tipoUsuario = resultado.getString(2);
 					nombreObtenido = resultado.getString(3);
 					Variable.configuracion = resultado.getBoolean(4);
 					Variable.backup_Restauracion = resultado.getBoolean(5);
